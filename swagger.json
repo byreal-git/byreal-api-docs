@@ -1,0 +1,5674 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Byreal DEX API 文档",
+    "description": "Byreal DEX 项目的 API 接口文档",
+    "contact": {
+      "name": "Gene.Ye",
+      "email": "gene.ye@byreal.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://springdoc.org"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://byreal-dex-api-sbu-test-5.test.efficiency.ww5sawfyut0k.bitsvc.io",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/byreal/api/dex/v2/upload": {
+      "post": {
+        "tags": [
+          "upload-controller"
+        ],
+        "operationId": "upload",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                },
+                "required": [
+                  "file"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/send-swap-tx": {
+      "post": {
+        "tags": [
+          "swap-controller"
+        ],
+        "operationId": "sendSwapTx",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSwapTxReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/send-bbsol-tx": {
+      "post": {
+        "tags": [
+          "swap-controller"
+        ],
+        "operationId": "sendTx",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendTxReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/pools/info/batch": {
+      "post": {
+        "tags": [
+          "pool-controller"
+        ],
+        "operationId": "poolsInfoBatch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SimplePoolInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/liquidity/send": {
+      "post": {
+        "tags": [
+          "position-controller"
+        ],
+        "operationId": "sendLiquidityTx",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSwapTxReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/send/order": {
+      "post": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "提交认购订单",
+        "description": "用户提交认购订单,后端对订单检查后上链",
+        "operationId": "saveOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendLaunchpadTxReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/incentive/order-v3": {
+      "post": {
+        "tags": [
+          "incentive-controller"
+        ],
+        "summary": "领取奖励 V3",
+        "description": "用户领取已计算的奖励 (从 Redis 获取订单)，返回交易哈希及代币列表",
+        "operationId": "claimRewardV3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimRewardRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功领取奖励 (V2)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimRewardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/incentive/order-v2": {
+      "post": {
+        "tags": [
+          "incentive-controller"
+        ],
+        "summary": "领取奖励 V2",
+        "description": "用户领取已计算的奖励 (从 Redis 获取订单)，返回交易哈希及代币列表",
+        "operationId": "claimRewardV2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimRewardRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功领取奖励 (V2)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimRewardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/incentive/encode-v3": {
+      "post": {
+        "tags": [
+          "incentive-controller"
+        ],
+        "operationId": "encodeClaimReqV3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EncodeClaimRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功编码领取奖励请求(V2,不锁定奖励)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EncodeClaimResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/incentive/encode-v2": {
+      "post": {
+        "tags": [
+          "incentive-controller"
+        ],
+        "operationId": "encodeClaimReqV2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EncodeClaimRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功编码领取奖励请求(V2,不锁定奖励)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EncodeClaimResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/incentive/encode-fee": {
+      "post": {
+        "tags": [
+          "incentive-controller"
+        ],
+        "summary": "编码收取手续费（批量）",
+        "description": "生成收取 CLMM 持仓手续费的交易，支持批量处理，返回交易载荷和代币信息列表",
+        "operationId": "encodeFee",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EncodeFeeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "成功编码收取手续费交易",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EncodeFeeResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/copyfarmer/top-positions": {
+      "post": {
+        "tags": [
+          "farmer-controller"
+        ],
+        "operationId": "topPositions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FarmerPositionListReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FarmerPositionRes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/copyfarmer/top-farmers": {
+      "post": {
+        "tags": [
+          "farmer-controller"
+        ],
+        "operationId": "topFarmers",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CopyFarmerProviderListReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "查询当前用户维度的 top 列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CopyFarmerProviderInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/send-tx": {
+      "post": {
+        "tags": [
+          "binary-controller"
+        ],
+        "operationId": "sendTx_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendSwapTxReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/jconnector/opt/set": {
+      "get": {
+        "tags": [
+          "j-connector-endpoint"
+        ],
+        "operationId": "setConfig",
+        "parameters": [
+          {
+            "name": "debug",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/test/priority-fees": {
+      "get": {
+        "tags": [
+          "swap-controller"
+        ],
+        "operationId": "testPriorityFees",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/position/unclaimed-v2": {
+      "get": {
+        "tags": [
+          "position-controller"
+        ],
+        "operationId": "unclaimedDataV2",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnclaimedDataV2Response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/position/unclaimed-data": {
+      "get": {
+        "tags": [
+          "position-controller"
+        ],
+        "operationId": "unclaimedData",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionUnclaimedData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/position/overview": {
+      "get": {
+        "tags": [
+          "position-controller"
+        ],
+        "operationId": "getPositionOverview",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionOverview"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/position/list": {
+      "get": {
+        "tags": [
+          "position-controller"
+        ],
+        "operationId": "getPositionList",
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "tokenAddress",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "liquidity",
+                "apr",
+                "earned",
+                "pnl",
+                "copies",
+                "bonus",
+                "closeTime"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionListData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/position/detail": {
+      "get": {
+        "tags": [
+          "position-controller"
+        ],
+        "operationId": "getPositionDetail",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PositionDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/pools/info/list": {
+      "get": {
+        "tags": [
+          "pool-controller"
+        ],
+        "operationId": "poolsInfoList",
+        "parameters": [
+          {
+            "name": "sortType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "display",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "tvl",
+                "volumeUsd24h",
+                "feeUsd24h",
+                "apr24h"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResultSimplePoolInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/pools/details": {
+      "get": {
+        "tags": [
+          "pool-controller"
+        ],
+        "operationId": "poolsInfoDetails",
+        "parameters": [
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PoolInfoDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/overview/global": {
+      "get": {
+        "tags": [
+          "pool-controller"
+        ],
+        "operationId": "overviewGlobal",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OverviewGlobalDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/order/list": {
+      "get": {
+        "tags": [
+          "order-controller"
+        ],
+        "operationId": "list",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "maximum": 100,
+              "minimum": 1
+            }
+          },
+          {
+            "name": "userAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderListData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/mint/price": {
+      "get": {
+        "tags": [
+          "token-controller"
+        ],
+        "operationId": "mintPrice",
+        "parameters": [
+          {
+            "name": "mints",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/mint/multiplier": {
+      "get": {
+        "tags": [
+          "token-controller"
+        ],
+        "operationId": "mintMultiplier",
+        "parameters": [
+          {
+            "name": "mints",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/mint/list": {
+      "get": {
+        "tags": [
+          "token-controller"
+        ],
+        "operationId": "getMintList",
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sortField",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "tvl",
+                "volumeUsd24h",
+                "price",
+                "priceChange24h",
+                "apr24h"
+              ]
+            }
+          },
+          {
+            "name": "searchKey",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResultMintItem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/mint/ids": {
+      "get": {
+        "tags": [
+          "token-controller"
+        ],
+        "operationId": "mintIds",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MintItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/mint/hot": {
+      "get": {
+        "tags": [
+          "token-controller"
+        ],
+        "operationId": "getHotMint",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MintItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/main/staking/bbsol/stats": {
+      "get": {
+        "tags": [
+          "common-controller"
+        ],
+        "operationId": "bbsolStats",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/JSONObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/main/jito-tip": {
+      "get": {
+        "tags": [
+          "common-controller"
+        ],
+        "operationId": "jitoTip",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/JitoTipFloorItem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/main/config": {
+      "get": {
+        "tags": [
+          "common-controller"
+        ],
+        "operationId": "config",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FrontendConfig"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/main/auto-fee": {
+      "get": {
+        "tags": [
+          "common-controller"
+        ],
+        "operationId": "autoFee",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PriorityFeesItem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/whitelist/sign": {
+      "get": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "获取白名单签名",
+        "description": "获取用户在指定 auction 的白名单签名",
+        "operationId": "sign",
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "query",
+            "description": "auction 地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "description": "用户钱包地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhitelistSignResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/user/commit/status": {
+      "get": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "查询用户认购状态",
+        "description": "查询用户在指定 auction 的认购状态",
+        "operationId": "commitStatus",
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "query",
+            "description": "auction 地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "description": "用户钱包地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserCommitStatusInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/statistic": {
+      "get": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "查询launchpad的全局统计信息",
+        "description": "查询launchpad的统计信息，比如总认购人数，总认购金额等",
+        "operationId": "stat",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/LaunchpadStatisticInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/list": {
+      "get": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "查询 auction 列表",
+        "description": "查询所有的 auction 列表，返回auction的简略信息",
+        "operationId": "list_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuctionDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/check/whitelist": {
+      "get": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "查询用户是否是白名单用户",
+        "description": "查询用户在指定 auction 是否是白名单用户",
+        "operationId": "check",
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "query",
+            "description": "auction 地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "description": "用户钱包地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/launchpad/auction": {
+      "get": {
+        "tags": [
+          "launchpad-controller"
+        ],
+        "summary": "查询 auction 信息",
+        "description": "查询指定的 auction 信息",
+        "operationId": "auction",
+        "parameters": [
+          {
+            "name": "auctionAddress",
+            "in": "query",
+            "description": "auction 地址",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuctionDetailInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/kline/query": {
+      "get": {
+        "tags": [
+          "kline-chart-controller"
+        ],
+        "operationId": "listKLine",
+        "parameters": [
+          {
+            "name": "tokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "klineType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KLineItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/kline/query-ui": {
+      "get": {
+        "tags": [
+          "kline-chart-controller"
+        ],
+        "operationId": "listKLineUI",
+        "parameters": [
+          {
+            "name": "tokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "klineType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KLineItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/copyfarmer/providerOverview": {
+      "get": {
+        "tags": [
+          "farmer-controller"
+        ],
+        "operationId": "providerOverview",
+        "parameters": [
+          {
+            "name": "providerAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查询当前用户的详情",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CopyFarmerProviderOverviewInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/copyfarmer/overview": {
+      "get": {
+        "tags": [
+          "farmer-controller"
+        ],
+        "operationId": "overview",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FarmerOverviewDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/copyfarmer/epoch-bonus": {
+      "get": {
+        "tags": [
+          "farmer-controller"
+        ],
+        "operationId": "getWalletBonus",
+        "parameters": [
+          {
+            "name": "walletAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "根据钱包地址查询奖励金额",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/chart/k-line": {
+      "get": {
+        "tags": [
+          "kline-controller"
+        ],
+        "operationId": "listKLine_1",
+        "parameters": [
+          {
+            "name": "tokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "klineType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KLineItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/chart/k-line-ui": {
+      "get": {
+        "tags": [
+          "kline-controller"
+        ],
+        "operationId": "listKLineUI_1",
+        "parameters": [
+          {
+            "name": "tokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "klineType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/KLineItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/position/detail": {
+      "get": {
+        "tags": [
+          "binary-query-controller"
+        ],
+        "summary": "查询用户仓位信息",
+        "description": "查询用户的二元期权仓位详情",
+        "operationId": "getUserPosition",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "query",
+            "description": "用户地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "description": "池子地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BinaryPositionRecord"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/pool/summary": {
+      "get": {
+        "tags": [
+          "binary-query-controller"
+        ],
+        "summary": "获取池子详情",
+        "description": "根据池子地址查询二元期权池子的详细信息",
+        "operationId": "getPoolSummary",
+        "parameters": [
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "description": "池子地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BinaryPoolSummaryResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/pool/detail": {
+      "get": {
+        "tags": [
+          "binary-query-controller"
+        ],
+        "summary": "获取池子详情",
+        "description": "根据池子地址查询二元期权池子的详细信息",
+        "operationId": "getPoolDetail",
+        "parameters": [
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "description": "池子地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BinaryPoolDetailResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/pnl/trend": {
+      "get": {
+        "tags": [
+          "binary-query-controller"
+        ],
+        "summary": "查询 PnL 趋势",
+        "description": "查询用户的 PnL 趋势数据",
+        "operationId": "getPnlTrend",
+        "parameters": [
+          {
+            "name": "userAddress",
+            "in": "query",
+            "description": "用户地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "用户地址",
+              "example": "USER_ADDRESS_HERE",
+              "minLength": 1
+            },
+            "example": "USER_ADDRESS_HERE"
+          },
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "description": "池子地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "池子地址",
+              "example": "POOL_ADDRESS_HERE",
+              "minLength": 1
+            },
+            "example": "POOL_ADDRESS_HERE"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "description": "统计周期: D/W/M",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "统计周期: D/W/M",
+              "example": "1h",
+              "minLength": 1
+            },
+            "example": "1h"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "开始时间戳(毫秒)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "开始时间戳(毫秒)",
+              "example": 1700000000000
+            },
+            "example": 1700000000000
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "结束时间戳(毫秒)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "结束时间戳(毫秒)",
+              "example": 1700010000000
+            },
+            "example": 1700010000000
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BinaryPnlTrendResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/kline": {
+      "get": {
+        "tags": [
+          "binary-kline-controller"
+        ],
+        "operationId": "getBinaryKline",
+        "parameters": [
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "klineType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BinaryKLineItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/holders/top": {
+      "get": {
+        "tags": [
+          "binary-query-controller"
+        ],
+        "summary": "查询 Top Holders",
+        "description": "查询指定池子中持仓最高的前 N 名用户",
+        "operationId": "getTopHolders",
+        "parameters": [
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "description": "池子地址",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "池子地址",
+              "example": "POOL_ADDRESS_HERE",
+              "minLength": 1
+            },
+            "example": "POOL_ADDRESS_HERE"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "返回数量，默认15",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "description": "返回数量，默认15",
+              "example": 15,
+              "maximum": 100,
+              "minimum": 1
+            },
+            "example": 15
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BinaryTopHoldersResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/binary/activities": {
+      "get": {
+        "tags": [
+          "binary-query-controller"
+        ],
+        "summary": "活动历史分页查询",
+        "description": "查询二元期权交易活动历史记录",
+        "operationId": "getActivities",
+        "parameters": [
+          {
+            "name": "cursor",
+            "in": "query",
+            "description": "游标",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "description": "游标",
+              "example": 1,
+              "minimum": 1
+            },
+            "example": 1
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "每页数量",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "description": "每页数量",
+              "example": 20,
+              "maximum": 100,
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "orderField",
+            "in": "query",
+            "description": "排序字段",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "排序字段",
+              "enum": [
+                "blockTime",
+                "id"
+              ],
+              "example": "blockTime"
+            },
+            "example": "blockTime"
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "排序类型",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "排序类型",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "example": "asc"
+            },
+            "example": "asc"
+          },
+          {
+            "name": "filterAction",
+            "in": "query",
+            "description": "过滤动作: 1=买入，0=卖出",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "description": "过滤动作: 1=买入，0=卖出",
+              "example": 1
+            },
+            "example": 1
+          },
+          {
+            "name": "filterSelf",
+            "in": "query",
+            "description": "过滤用户地址",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "过滤用户地址",
+              "example": "0xxddd"
+            },
+            "example": "0xxddd"
+          },
+          {
+            "name": "poolAddress",
+            "in": "query",
+            "description": "poolAddress",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "poolAddress",
+              "example": 1
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BinaryActivitiesResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/banner/list": {
+      "get": {
+        "tags": [
+          "common-controller"
+        ],
+        "summary": "banner集合",
+        "description": "banner集合",
+        "operationId": "bannerList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BannerItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/byreal/api/dex/v2/admin/k-line": {
+      "get": {
+        "tags": [
+          "kline-controller"
+        ],
+        "operationId": "ListKLine",
+        "parameters": [
+          {
+            "name": "tokenAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SendSwapTxReq": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "SendTxReq": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "MintInfo": {
+        "type": "object",
+        "description": "代币的基础信息",
+        "properties": {
+          "programId": {
+            "type": "string",
+            "description": "代币的 programId 地址"
+          },
+          "address": {
+            "type": "string",
+            "description": "代币的 mintAccount 地址"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "代币的 符号",
+            "example": "SOL"
+          },
+          "name": {
+            "type": "string",
+            "description": "代币的名称",
+            "example": "Solana"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "代币的精度",
+            "example": 9
+          },
+          "logoURI": {
+            "type": "string",
+            "description": "代币的 logo 图片地址"
+          }
+        },
+        "required": [
+          "address",
+          "decimals"
+        ]
+      },
+      "MintInfoWithPrice": {
+        "type": "object",
+        "description": "带价格的代币信息",
+        "properties": {
+          "mintInfo": {
+            "$ref": "#/components/schemas/MintInfo",
+            "description": "代币的 mintInfo 信息"
+          },
+          "price": {
+            "type": "string",
+            "description": "代币的当前价格，单位美元"
+          }
+        },
+        "required": [
+          "mintInfo",
+          "price"
+        ]
+      },
+      "PoolFeeRate": {
+        "type": "object",
+        "description": "池子的手续费率配置",
+        "properties": {
+          "fixFeeRate": {
+            "type": "string",
+            "description": "配置的 固定手续费率标签, 取自 poolState 对应的 ammConfig 中"
+          },
+          "decayFeeInUse": {
+            "type": "integer",
+            "format": "int32",
+            "description": "启用decayFee 的状态：0: 未启用decayFee; 1: sell MintA 时启用 decayFee; 2: sell MintB 时启用; 3: sell MintA 和 sell MintB 时 都启用 decayFee"
+          },
+          "decayFeeInitFeeRate": {
+            "type": "integer",
+            "format": "int32",
+            "description": "decay fee 的初始费率，百分比表示 (1=1%)"
+          },
+          "decayFeeDecreaseRate": {
+            "type": "integer",
+            "format": "int32",
+            "description": "decay fee 的递减比例，百分比表示 (1=1%)"
+          },
+          "decayFeeDecreaseInterval": {
+            "type": "integer",
+            "format": "int32",
+            "description": "decay fee 递减的时间间隔，单位秒"
+          }
+        },
+        "required": [
+          "decayFeeDecreaseInterval",
+          "decayFeeDecreaseRate",
+          "decayFeeInUse",
+          "decayFeeInitFeeRate",
+          "fixFeeRate"
+        ]
+      },
+      "PoolRewardItem": {
+        "type": "object",
+        "description": "池子奖励信息",
+        "properties": {
+          "token": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "奖励代币的代币信息"
+          },
+          "dailyMaxAmount": {
+            "type": "string",
+            "description": "每日reward代币最大释放量"
+          },
+          "dailyAmountDisplay": {
+            "type": "string",
+            "description": "每日reward代币释放量，字符串格式化显示; 可选字段"
+          },
+          "endTimestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "reward 结束释放的时间戳，单位秒"
+          },
+          "apr": {
+            "type": "string",
+            "description": "当前 reward 代币释放，带给用户的 apr"
+          }
+        },
+        "required": [
+          "apr",
+          "dailyMaxAmount",
+          "endTimestamp",
+          "token"
+        ]
+      },
+      "SimplePoolInfo": {
+        "type": "object",
+        "description": "用于 池子列表 的 简化版池子信息",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "池子地址， 也是poolID"
+          },
+          "mintA": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 代币A（token0） 信息"
+          },
+          "mintB": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 代币B（token1） 信息"
+          },
+          "baseMint": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 base 显示 信息"
+          },
+          "quoteMint": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 quote 显示 信息"
+          },
+          "feeRate": {
+            "$ref": "#/components/schemas/PoolFeeRate",
+            "description": "池子的 freeRate 信息"
+          },
+          "category": {
+            "type": "integer",
+            "format": "int64",
+            "description": "池子分类， 1: 稳定币池, 2: xStocks 池, 4: reset/launch pad 池"
+          },
+          "price": {
+            "type": "string",
+            "description": "当前价格"
+          },
+          "priceChange1h": {
+            "type": "string",
+            "description": "变化率"
+          },
+          "priceChange12h": {
+            "type": "string",
+            "description": "变化率"
+          },
+          "priceChange1d": {
+            "type": "string",
+            "description": "变化率"
+          },
+          "priceChange7d": {
+            "type": "string",
+            "description": "变化率"
+          },
+          "tvl": {
+            "type": "string",
+            "description": "池子中 代币A 和 代币B 的折USD 总和"
+          },
+          "feeTvl1h": {
+            "type": "string",
+            "description": "fee比tvl"
+          },
+          "feeTvl12h": {
+            "type": "string",
+            "description": "fee比tvl"
+          },
+          "feeTvl1d": {
+            "type": "string",
+            "description": "fee比tvl"
+          },
+          "feeTvl7d": {
+            "type": "string",
+            "description": "fee比tvl"
+          },
+          "volumeUsd1h": {
+            "type": "string",
+            "description": "池子的24小时交易量， 折USD"
+          },
+          "volumeUsd12h": {
+            "type": "string",
+            "description": "池子的24小时交易量， 折USD"
+          },
+          "volumeUsd24h": {
+            "type": "string",
+            "description": "池子的24小时交易量， 折USD"
+          },
+          "volumeUsd1d": {
+            "type": "string",
+            "description": "池子的24小时交易量， 折USD"
+          },
+          "volumeUsd7d": {
+            "type": "string",
+            "description": "池子的24小时交易量， 折USD"
+          },
+          "feeUsd1h": {
+            "type": "string",
+            "description": "池子的 最近1h 手续费收益， 折USD"
+          },
+          "feeUsd12h": {
+            "type": "string",
+            "description": "池子的 最近12h 手续费收益， 折USD"
+          },
+          "feeUsd1d": {
+            "type": "string",
+            "description": "池子的 最近24小时 手续费收益， 折USD"
+          },
+          "feeUsd24h": {
+            "type": "string",
+            "description": "池子的 最近24小时 手续费收益， 折USD"
+          },
+          "feeUsd7d": {
+            "type": "string",
+            "description": "池子的 最近7天 手续费收益， 折USD"
+          },
+          "feeApr24h": {
+            "type": "string",
+            "description": "池子的 最近24小时Fee收益的年化收益率（APR）"
+          },
+          "totalBonus": {
+            "type": "string",
+            "description": "池子的总bonus"
+          },
+          "openTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "池子的开启时间 ms时间戳"
+          },
+          "decayFeeFlag": {
+            "type": "integer",
+            "format": "int32",
+            "description": "池子的开启时间 ms时间戳"
+          },
+          "rewards": {
+            "type": "array",
+            "description": "池子的 reward 释放信息",
+            "items": {
+              "$ref": "#/components/schemas/PoolRewardItem"
+            }
+          },
+          "displayReversed": {
+            "type": "boolean",
+            "description": "true = 展示顺序与链上相反"
+          },
+          "kline1h": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kline12h": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kline1d": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kline7d": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "mintA",
+          "mintB",
+          "poolAddress",
+          "rewards"
+        ]
+      },
+      "SendLaunchpadTxReq": {
+        "type": "object",
+        "description": "请求数据",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ClaimRewardRequest": {
+        "type": "object",
+        "description": "Claim Reward Request",
+        "properties": {
+          "orderCode": {
+            "type": "string",
+            "description": "Order ID",
+            "example": 1
+          },
+          "walletAddress": {
+            "type": "string",
+            "description": "User wallet address",
+            "example": "59eALsYdiktE5P7aJoYbuKFBm5DMRHrU71Jcp4MBPU4L"
+          },
+          "signedTxPayload": {
+            "type": "array",
+            "description": "Signed transaction payload",
+            "example": "AAAAgAIBCQ2/YjQk4loiCsNiPcy45Y1g+qom4AvUYKYpRudtjYkvuWz23qoXEQ6gJf..",
+            "items": {
+              "$ref": "#/components/schemas/RewardClaimSignedTx"
+            }
+          }
+        },
+        "required": [
+          "orderCode",
+          "signedTxPayload",
+          "walletAddress"
+        ]
+      },
+      "RewardClaimSignedTx": {
+        "type": "object",
+        "description": "RewardEncodeItem 按池子维度聚合交易",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "pool address",
+            "example": "0x01c0f7c7c0f7c7c0f7c7c0f7c7c0f7c7c0"
+          },
+          "signedTx": {
+            "type": "string",
+            "description": "已签名的交易",
+            "example": "0x01c0f7c7c0f7c7c0f7c7c0f7c7c0f7c7c0"
+          },
+          "txCode": {
+            "type": "string",
+            "description": "交易编号",
+            "example": "交易编号"
+          }
+        }
+      },
+      "ClaimRewardResponse": {
+        "type": "object",
+        "description": "奖励领取响应",
+        "properties": {
+          "orderCode": {
+            "type": "string",
+            "description": "订单ID",
+            "example": 1
+          },
+          "txList": {
+            "type": "array",
+            "description": "交易hash和zh的内容",
+            "items": {
+              "$ref": "#/components/schemas/RewardClaimTxResultDTO"
+            }
+          },
+          "claimTokenList": {
+            "type": "array",
+            "description": "奖励发放清单",
+            "items": {
+              "$ref": "#/components/schemas/ClaimTokenItem"
+            }
+          }
+        },
+        "required": [
+          "claimTokenList",
+          "tx"
+        ]
+      },
+      "ClaimTokenItem": {
+        "type": "object",
+        "description": "奖励领取单项",
+        "properties": {
+          "tokenAddress": {
+            "type": "string",
+            "description": "token 地址",
+            "example": "So11111111111111111111111111111111111111112"
+          },
+          "tokenSymbol": {
+            "type": "string",
+            "description": "token 符号",
+            "example": "USDC"
+          },
+          "tokenAmount": {
+            "type": "string",
+            "description": "token 数量,带精度",
+            "example": 1000.022300009
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "token 精度",
+            "example": 9
+          }
+        },
+        "required": [
+          "tokenAddress",
+          "tokenAmount",
+          "tokenSymbol"
+        ]
+      },
+      "RewardClaimTxResultDTO": {
+        "type": "object",
+        "description": "reward info",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "pool address"
+          },
+          "txSignature": {
+            "type": "string",
+            "description": "tx signature"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "status,0 send, 1 success, 2 failed"
+          }
+        }
+      },
+      "EncodeClaimRequest": {
+        "type": "object",
+        "description": "编码Claim请求参数",
+        "properties": {
+          "walletAddress": {
+            "type": "string",
+            "description": "用户钱包地址",
+            "example": "59eALsYdiktE5P7aJoYbuKFBm5DMRHrU71Jcp4MBPU4L"
+          },
+          "positionAddresses": {
+            "type": "array",
+            "description": "用户持仓地址列表",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "description": "类型 1默认值 标识reward 逻辑 。2 标识bonus 逻辑",
+            "example": "1,2"
+          }
+        },
+        "required": [
+          "positionAddresses",
+          "walletAddress"
+        ]
+      },
+      "EncodeClaimResponse": {
+        "type": "object",
+        "description": "编码claim的响应",
+        "properties": {
+          "orderCode": {
+            "type": "string",
+            "description": "订单ID",
+            "example": 1
+          },
+          "rewardEncodeItems": {
+            "type": "array",
+            "description": "待用户签名的交易的 payload",
+            "items": {
+              "$ref": "#/components/schemas/RewardClaimRawTxInfo"
+            }
+          }
+        },
+        "required": [
+          "orderCode",
+          "txPayload"
+        ]
+      },
+      "RewardClaimInfoDTO": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "type": "string",
+            "description": "mint address"
+          },
+          "tokenAmount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "reward amount"
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "reward amount"
+          },
+          "tokenSymbol": {
+            "type": "string",
+            "description": "token symbol"
+          }
+        }
+      },
+      "RewardClaimRawTxInfo": {
+        "type": "object",
+        "description": "奖励领取交易信息",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "pool address"
+          },
+          "txPayload": {
+            "type": "string",
+            "description": "奖励领取交易信息"
+          },
+          "txSignature": {
+            "type": "string",
+            "description": "tx signature"
+          },
+          "txCode": {
+            "type": "string",
+            "description": "tx 唯一编号"
+          },
+          "rewardClaimInfo": {
+            "type": "array",
+            "description": "奖励领取交易信息",
+            "items": {
+              "$ref": "#/components/schemas/RewardClaimInfoDTO"
+            }
+          }
+        }
+      },
+      "EncodeFeeRequest": {
+        "type": "object",
+        "description": "Encode collect fees request",
+        "properties": {
+          "walletAddress": {
+            "type": "string",
+            "description": "Wallet address that will collect the fees",
+            "example": "59eALsYdiktE5P7aJoYbuKFBm5DMRHrU71Jcp4MBPU4L",
+            "minLength": 1
+          },
+          "positionAddresses": {
+            "type": "array",
+            "description": "Personal position addresses list (optional, if not provided, query all positions for the wallet)",
+            "example": [
+              "7UX2i7SucgLMQcfZ75s3VXmZZY4YRUyJN9X1RgfMoDUi"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "walletAddress"
+        ]
+      },
+      "EncodeFeeResponse": {
+        "type": "object",
+        "description": "Single position collect fees data",
+        "properties": {
+          "positionAddress": {
+            "type": "string",
+            "description": "Personal position address"
+          },
+          "txPayload": {
+            "type": "string",
+            "description": "Base64 encoded transaction payload to be signed by user"
+          },
+          "tokens": {
+            "type": "array",
+            "description": "Token fee information for both base and quote tokens",
+            "items": {
+              "$ref": "#/components/schemas/TokenFeeInfo"
+            }
+          }
+        },
+        "required": [
+          "tokens",
+          "txPayload"
+        ]
+      },
+      "TokenFeeInfo": {
+        "type": "object",
+        "description": "Token fee information",
+        "properties": {
+          "tokenAddress": {
+            "type": "string",
+            "description": "Token mint address",
+            "example": "So11111111111111111111111111111111111111112"
+          },
+          "tokenAmount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Fee amount to collect (in raw units)",
+            "example": 81429896
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Token decimals",
+            "example": 8
+          },
+          "tokenSymbol": {
+            "type": "string",
+            "description": "Token symbol",
+            "example": "SOL"
+          }
+        }
+      },
+      "FarmerPositionListReq": {
+        "type": "object",
+        "properties": {
+          "sortType": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "category": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "poolAddress": {
+            "type": "string"
+          },
+          "parentPositionAddress": {
+            "type": "string"
+          },
+          "walletAddress": {
+            "type": "string"
+          },
+          "incentiveOnly": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tokenAddress": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sortField": {
+            "type": "string",
+            "enum": [
+              "liquidity",
+              "apr",
+              "earned",
+              "pnl",
+              "copies",
+              "bonus",
+              "closeTime"
+            ]
+          }
+        }
+      },
+      "FarmerPositionRes": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "records": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/PositionItem"
+            }
+          },
+          "poolMap": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PoolInfo"
+            },
+            "description": "池子信息映射（key: poolAddress, value: PoolInfo）"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总条数",
+            "example": 10
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页大小",
+            "example": 10
+          },
+          "current": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PoolInfo": {
+        "type": "object",
+        "description": "池子信息",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "池子地址"
+          },
+          "mintA": {
+            "$ref": "#/components/schemas/TokenInfo",
+            "description": "基础代币信息"
+          },
+          "mintB": {
+            "$ref": "#/components/schemas/TokenInfo",
+            "description": "报价代币信息"
+          },
+          "baseMint": {
+            "$ref": "#/components/schemas/TokenInfo",
+            "description": "池子中的 base 显示 信息"
+          },
+          "quoteMint": {
+            "$ref": "#/components/schemas/TokenInfo",
+            "description": "池子中的 quote 显示 信息"
+          },
+          "category": {
+            "type": "integer",
+            "format": "int64",
+            "description": "池子类别"
+          },
+          "feeRate": {
+            "$ref": "#/components/schemas/PoolFeeRate",
+            "description": "费率"
+          },
+          "tvl": {
+            "type": "string",
+            "description": "总锁仓价值",
+            "example": "123.456"
+          },
+          "volumeUsd24h": {
+            "type": "string",
+            "description": "24小时交易量（美元）",
+            "example": "123.456"
+          },
+          "rewards": {
+            "type": "array",
+            "description": "奖励列表",
+            "items": {
+              "$ref": "#/components/schemas/PoolRewardInfo"
+            }
+          },
+          "accountBase64": {
+            "type": "string",
+            "description": "pool 的链上账号数据"
+          },
+          "displayReversed": {
+            "type": "boolean",
+            "description": "true = 展示顺序与链上相反"
+          }
+        },
+        "required": [
+          "accountBase64",
+          "category",
+          "feeRate",
+          "mintA",
+          "mintB",
+          "poolAddress",
+          "rewards",
+          "tvl",
+          "volumeUsd24h"
+        ]
+      },
+      "PoolRewardInfo": {
+        "type": "object",
+        "description": "池子奖励信息",
+        "properties": {
+          "mintAddress": {
+            "type": "string",
+            "description": "奖励代币地址"
+          },
+          "rewardToken": {
+            "$ref": "#/components/schemas/TokenInfo",
+            "description": "奖励代币信息"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "开始时间"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "结束时间"
+          },
+          "total": {
+            "type": "string",
+            "description": "奖励总量",
+            "example": "123.456"
+          },
+          "rate": {
+            "type": "string",
+            "description": "单位时间释放率",
+            "example": "123.456"
+          },
+          "apr": {
+            "type": "string",
+            "description": "年化收益率",
+            "example": "123.456"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态（0进行中，1已结束）"
+          },
+          "dailyAmount": {
+            "type": "string",
+            "description": "每日释放量",
+            "example": "123.456"
+          }
+        },
+        "required": [
+          "apr",
+          "endTime",
+          "mintAddress",
+          "rate",
+          "rewardToken",
+          "startTime",
+          "status",
+          "total"
+        ]
+      },
+      "PositionItem": {
+        "type": "object",
+        "description": "LP仓位信息",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "池子地址"
+          },
+          "positionAddress": {
+            "type": "string",
+            "description": "个人仓位账户地址"
+          },
+          "nftMintAddress": {
+            "type": "string",
+            "description": "LP NFT mint地址"
+          },
+          "upperTick": {
+            "type": "integer",
+            "format": "int64",
+            "description": "价格tick上界"
+          },
+          "lowerTick": {
+            "type": "integer",
+            "format": "int64",
+            "description": "价格tick下界"
+          },
+          "positionAccountBase64": {
+            "type": "string",
+            "description": "position 的链上账号数据"
+          },
+          "tickLowerAccountBase64": {
+            "type": "string",
+            "description": "lower tick array 的链上账户数据"
+          },
+          "tickUpperAccountBase64": {
+            "type": "string",
+            "description": "upper tick array 的链上账户数据"
+          },
+          "rewards": {
+            "type": "array",
+            "description": "奖励列表",
+            "items": {
+              "$ref": "#/components/schemas/PositionRewardItem"
+            }
+          },
+          "unclaimedData": {
+            "type": "array",
+            "description": "奖励列表",
+            "items": {
+              "$ref": "#/components/schemas/UnclaimedItemV2"
+            }
+          },
+          "apr": {
+            "type": "string",
+            "description": "apr"
+          },
+          "liquidityUsd": {
+            "type": "string",
+            "description": "流动性折u"
+          },
+          "earnedUsd": {
+            "type": "string",
+            "description": "总赚取折u"
+          },
+          "earnedUsdPercent": {
+            "type": "string",
+            "description": "总赚取百分比"
+          },
+          "pnlUsd": {
+            "type": "string",
+            "description": "盈亏折u"
+          },
+          "pnlUsdPercent": {
+            "type": "string",
+            "description": "盈亏折u百分比"
+          },
+          "bonusUsd": {
+            "type": "string",
+            "description": "bonus"
+          },
+          "copies": {
+            "type": "integer",
+            "format": "int64",
+            "description": "copies"
+          },
+          "positionAgeMs": {
+            "type": "integer",
+            "format": "int64",
+            "description": "positionAgeMs"
+          },
+          "walletAddress": {
+            "type": "string",
+            "description": "walletAddress"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "仓位状态 0-开仓 1-关仓"
+          },
+          "totalDeposit": {
+            "type": "string",
+            "description": "totalDeposit"
+          },
+          "totalClaimedFeesRewards": {
+            "type": "string",
+            "description": "totalClaimedFeesRewards"
+          }
+        },
+        "required": [
+          "lowerTick",
+          "nftMintAddress",
+          "poolAddress",
+          "positionAccountBase64",
+          "positionAddress",
+          "tickLowerAccountBase64",
+          "tickUpperAccountBase64",
+          "upperTick"
+        ]
+      },
+      "PositionRewardItem": {
+        "type": "object",
+        "description": "仓位奖励信息",
+        "properties": {
+          "positionAddress": {
+            "type": "string",
+            "description": "仓位地址"
+          },
+          "tokenAddress": {
+            "type": "string",
+            "description": "奖励代币地址"
+          },
+          "tokenSymbol": {
+            "type": "string",
+            "description": "奖励代币名称"
+          },
+          "tokenLogoUrl": {
+            "type": "string",
+            "description": "奖励代币图标"
+          },
+          "totalTokenAmount": {
+            "type": "string",
+            "description": "奖励代币数量",
+            "example": "123.456"
+          },
+          "syncedTokenAmount": {
+            "type": "string",
+            "description": "已同步的奖励代币数量",
+            "example": "123.456"
+          },
+          "lockedTokenAmount": {
+            "type": "string",
+            "description": "锁定的奖励代币数量",
+            "example": "123.456"
+          },
+          "claimedTokenAmount": {
+            "type": "string",
+            "description": "已领取的奖励代币数量",
+            "example": "123.456"
+          },
+          "price": {
+            "type": "string",
+            "description": "奖励代币价格",
+            "example": "123.456"
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "奖励代币精度"
+          }
+        },
+        "required": [
+          "claimedTokenAmount",
+          "lockedTokenAmount",
+          "positionAddress",
+          "price",
+          "syncedTokenAmount",
+          "tokenAddress",
+          "tokenDecimals",
+          "tokenLogoUrl",
+          "tokenSymbol",
+          "totalTokenAmount"
+        ]
+      },
+      "TokenInfo": {
+        "type": "object",
+        "description": "代币信息",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "代币地址"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "代币符号"
+          },
+          "logoURI": {
+            "type": "string",
+            "description": "Logo URL"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "精度"
+          },
+          "price": {
+            "type": "string",
+            "description": "当前价格",
+            "example": "123.456"
+          },
+          "programId": {
+            "type": "string",
+            "description": "token or token2022"
+          }
+        },
+        "required": [
+          "address",
+          "decimals",
+          "logoURI",
+          "price",
+          "programId",
+          "symbol"
+        ]
+      },
+      "UnclaimedItemV2": {
+        "type": "object",
+        "properties": {
+          "positionAddress": {
+            "type": "string",
+            "description": "positionAddress may be null"
+          },
+          "tokenAddress": {
+            "type": "string",
+            "description": "Token mint address"
+          },
+          "tokenSymbol": {
+            "type": "string",
+            "description": "Token symbol"
+          },
+          "tokenLogoUrl": {
+            "type": "string",
+            "description": "Token logo URL"
+          },
+          "amount": {
+            "type": "string",
+            "description": "Amount of unclaimed tokens"
+          },
+          "price": {
+            "type": "string",
+            "description": "Token price in USD"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Type: 1=fee, 2=reward"
+          }
+        }
+      },
+      "CopyFarmerProviderListReq": {
+        "type": "object",
+        "description": "query provider list Request",
+        "properties": {
+          "sortType": {
+            "type": "string",
+            "description": "排序类型",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "example": "desc"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "pageSize 每叶显示条数",
+            "example": 1
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "description": "page页码",
+            "example": 1
+          },
+          "poolAddress": {
+            "type": "string",
+            "description": "pool address 不传查所有",
+            "example": "59eALsYdiktE5P7aJoYbuKFBm5DMRHrU71Jcp4MBPU4L"
+          },
+          "sortField": {
+            "type": "string",
+            "description": "排序字段",
+            "enum": [
+              "tvl",
+              "totalProfit",
+              "avgApr",
+              "positions",
+              "avgAge",
+              "bonus",
+              "copies"
+            ],
+            "example": "bonus"
+          }
+        },
+        "required": [
+          "orderCode",
+          "signedTxPayload",
+          "walletAddress"
+        ]
+      },
+      "CopyFarmerProviderInfo": {
+        "type": "object",
+        "description": "用户维度的 honus",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "池子地址， 也是poolID"
+          },
+          "providerAddress": {
+            "type": "string",
+            "description": "当前用户的地址"
+          },
+          "totalPnl": {
+            "type": "string",
+            "description": "当前用户的总收益",
+            "example": "123.456"
+          },
+          "liquidity": {
+            "type": "string",
+            "description": "tvl",
+            "example": "123.456"
+          },
+          "totalBonus": {
+            "type": "string",
+            "description": "总产生的 bonus-U",
+            "example": "123.456"
+          },
+          "totalFee": {
+            "type": "string",
+            "description": "总产生的 totalFee-U",
+            "example": "123.456"
+          },
+          "avgApr": {
+            "type": "string",
+            "description": "平均apr",
+            "example": "123.456"
+          },
+          "openPositionCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前开仓数量"
+          },
+          "closePositonCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前关闭数量"
+          },
+          "avgAge": {
+            "type": "integer",
+            "format": "int32",
+            "description": "仓位的平均生命周期"
+          },
+          "copies": {
+            "type": "integer",
+            "format": "int32",
+            "description": "累计跟随过别人的数量"
+          },
+          "follows": {
+            "type": "integer",
+            "format": "int32",
+            "description": "累计 被 跟随过的仓位数量"
+          },
+          "followsBonus": {
+            "type": "string",
+            "description": "被跟随的奖励折 U",
+            "example": "123.456"
+          },
+          "copiesBonus": {
+            "type": "string",
+            "description": "跟随的奖励折 U",
+            "example": "123.456"
+          },
+          "unclaimedTotal": {
+            "type": "string",
+            "description": "总的未领取的总计 U",
+            "example": "123.456"
+          },
+          "unclaimedFee": {
+            "type": "string",
+            "description": "总的未领取的总计 U",
+            "example": "123.456"
+          },
+          "unclaimedRewards": {
+            "type": "string",
+            "description": "总的未领取的rewards U",
+            "example": "123.456"
+          },
+          "unclaimedBonus": {
+            "type": "string",
+            "description": "总的未领取的bonus U",
+            "example": "123.456"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "创建时间"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "修改时间"
+          }
+        },
+        "required": [
+          "poolAddress",
+          "providerAddress"
+        ]
+      },
+      "Result": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "PositionRewardDef": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "type": "string"
+          },
+          "rewardOwed": {
+            "type": "string"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rewardFrom": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PositionWithRewardItem": {
+        "type": "object",
+        "description": "仓位列表响应数据",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "池子地址"
+          },
+          "positionAddress": {
+            "type": "string",
+            "description": "个人仓位账户地址"
+          },
+          "nftMintAddress": {
+            "type": "string",
+            "description": "LP NFT mint地址"
+          },
+          "liquidity": {
+            "type": "string",
+            "description": "当前流动性"
+          },
+          "upperTick": {
+            "type": "integer",
+            "format": "int64",
+            "description": "价格tick上界"
+          },
+          "lowerTick": {
+            "type": "integer",
+            "format": "int64",
+            "description": "价格tick下界"
+          },
+          "feeOwedA": {
+            "type": "string",
+            "description": "token A 手续费数量,始终是链上未提取的。"
+          },
+          "feeOwedB": {
+            "type": "string",
+            "description": "token B 手续费数量,始终是链上未提取的。"
+          },
+          "tokenEstA": {
+            "type": "string",
+            "description": "代币 A 预估数量,原始代币的数量"
+          },
+          "tokenEstB": {
+            "type": "string",
+            "description": "代币 B 预估数量,原始代币的数量"
+          },
+          "rewards": {
+            "type": "array",
+            "description": "奖励列表",
+            "items": {
+              "$ref": "#/components/schemas/PositionRewardDef"
+            }
+          }
+        },
+        "required": [
+          "poolMap",
+          "positions",
+          "total"
+        ]
+      },
+      "TokenInfoDTO": {
+        "type": "object",
+        "description": "代币信息",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "代币地址"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "代币symbol"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "代币精度"
+          },
+          "price": {
+            "type": "string",
+            "description": "代币价格，字符串表示"
+          }
+        }
+      },
+      "MetricsResult": {
+        "type": "object",
+        "properties": {
+          "per_compute_unit": {
+            "$ref": "#/components/schemas/PerComputeUnit"
+          }
+        }
+      },
+      "PerComputeUnit": {
+        "type": "object",
+        "properties": {
+          "extreme": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "high": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "low": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "medium": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "UnclaimedDataV2Response": {
+        "type": "object",
+        "description": "Unclaimed data V2 response with position count",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Total count of distinct positions",
+            "example": 100
+          },
+          "list": {
+            "type": "array",
+            "description": "List of unclaimed items (fees and rewards)",
+            "items": {
+              "$ref": "#/components/schemas/UnclaimedItemV2"
+            }
+          }
+        }
+      },
+      "PositionUnclaimedData": {
+        "type": "object",
+        "properties": {
+          "unclaimedFees": {
+            "type": "array",
+            "description": "未领取的fee明细",
+            "items": {
+              "$ref": "#/components/schemas/UnClaimedFeeDTO"
+            }
+          },
+          "unclaimedOpenIncentives": {
+            "type": "array",
+            "description": "开仓中未领取的incentive明细",
+            "items": {
+              "$ref": "#/components/schemas/PositionRewardItem"
+            }
+          },
+          "unclaimedOpenPositionCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "未领取fee和reward的postion数量"
+          },
+          "unclaimedClosedIncentives": {
+            "type": "array",
+            "description": "关仓未领取的Incentive明细",
+            "items": {
+              "$ref": "#/components/schemas/PositionRewardItem"
+            }
+          },
+          "unclaimedIncentivesClosedPositionCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "关仓未领取Incentive的postion数量"
+          },
+          "relatedPositions": {
+            "type": "array",
+            "description": "关联的仓位",
+            "items": {
+              "$ref": "#/components/schemas/PositionItem"
+            }
+          },
+          "poolMap": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PoolInfo"
+            },
+            "description": "池子信息映射（key: poolAddress, value: PoolInfo）"
+          }
+        }
+      },
+      "UnClaimedFeeDTO": {
+        "type": "object",
+        "properties": {
+          "positionAddress": {
+            "type": "string",
+            "description": "仓位地址"
+          },
+          "tokenAddress": {
+            "type": "string",
+            "description": "奖励代币地址"
+          },
+          "tokenSymbol": {
+            "type": "string",
+            "description": "奖励代币名称"
+          },
+          "tokenLogoUrl": {
+            "type": "string",
+            "description": "奖励代币图标"
+          },
+          "price": {
+            "type": "string",
+            "description": "奖励代币价格",
+            "example": "123.456"
+          },
+          "tokenDecimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "奖励代币精度"
+          },
+          "unclaimedAmount": {
+            "type": "string",
+            "description": "奖励代币数量",
+            "example": "123.456"
+          }
+        }
+      },
+      "PositionOverview": {
+        "type": "object",
+        "properties": {
+          "currentPositionsCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PositionListData": {
+        "type": "object",
+        "description": "仓位列表响应数据",
+        "properties": {
+          "positions": {
+            "type": "array",
+            "description": "仓位列表",
+            "items": {
+              "$ref": "#/components/schemas/PositionItem"
+            }
+          },
+          "poolMap": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/PoolInfo"
+            },
+            "description": "池子信息映射（key: poolAddress, value: PoolInfo）"
+          },
+          "closedPositionRewards": {
+            "type": "array",
+            "description": "已经关仓的奖励列表",
+            "items": {
+              "$ref": "#/components/schemas/PositionRewardItem"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总记录数"
+          }
+        },
+        "required": [
+          "poolMap",
+          "positions",
+          "total"
+        ]
+      },
+      "BonusInfo": {
+        "type": "object",
+        "properties": {
+          "fromCreatorBonus": {
+            "type": "string"
+          },
+          "fromRealFarmersBonus": {
+            "type": "string"
+          },
+          "fromCreatorPosition": {
+            "type": "string"
+          },
+          "fromCreatorPositionStatus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fromCreatorWallet": {
+            "type": "string"
+          },
+          "toRealFarmersBonus": {
+            "type": "string"
+          },
+          "toCreatorBonus": {
+            "type": "string"
+          },
+          "distSelfBonusUsd": {
+            "type": "string"
+          },
+          "totalBonus": {
+            "type": "string"
+          }
+        }
+      },
+      "FeeInfo": {
+        "type": "object",
+        "properties": {
+          "tokenAddress": {
+            "type": "string"
+          },
+          "fee1d": {
+            "type": "string"
+          },
+          "feeUsd1d": {
+            "type": "string"
+          },
+          "fee7d": {
+            "type": "string"
+          },
+          "feeUsd7d": {
+            "type": "string"
+          },
+          "allFee": {
+            "type": "string"
+          },
+          "allFeeUsd": {
+            "type": "string"
+          }
+        }
+      },
+      "PositionDetail": {
+        "type": "object",
+        "description": "仓位详情信息",
+        "properties": {
+          "positionAddress": {
+            "type": "string",
+            "description": "仓位地址"
+          },
+          "providerAddress": {
+            "type": "string",
+            "description": "开仓人地址"
+          },
+          "nftMintAddress": {
+            "type": "string",
+            "description": "NFT mint地址"
+          },
+          "pool": {
+            "$ref": "#/components/schemas/PoolInfo",
+            "description": "池子信息"
+          },
+          "positionAccountBase64": {
+            "type": "string",
+            "description": "包含完整的仓位链上数据，解码后包含tickLower/tickUpper等所有字段"
+          },
+          "tickLowerAccountBase64": {
+            "type": "string",
+            "description": "lower tick array 的链上账户数据"
+          },
+          "tickUpperAccountBase64": {
+            "type": "string",
+            "description": "upper tick array 的链上账户数据"
+          },
+          "rewards": {
+            "type": "array",
+            "description": "奖励定义信息",
+            "items": {
+              "$ref": "#/components/schemas/PositionRewardItem"
+            }
+          },
+          "unclaimedData": {
+            "type": "array",
+            "description": "奖励定义信息",
+            "items": {
+              "$ref": "#/components/schemas/UnclaimedItemV2"
+            }
+          },
+          "totalDeposit": {
+            "type": "string",
+            "description": "累积添加流动性折u"
+          },
+          "totalClaimedFeeAndReward": {
+            "type": "string",
+            "description": "总累计领取的手续费和奖励折u"
+          },
+          "totalUnClaimedFeeAndReward": {
+            "type": "string",
+            "description": "总累计未领取的手续费和奖励折u"
+          },
+          "totalWithdraw": {
+            "type": "string",
+            "description": "累积减少流动性折u"
+          },
+          "bonusInfo": {
+            "$ref": "#/components/schemas/BonusInfo",
+            "description": "bonus信息"
+          },
+          "pnlUsd": {
+            "type": "string",
+            "description": "盈亏"
+          },
+          "pnlUsdPercent": {
+            "type": "string",
+            "description": "盈亏百分比"
+          },
+          "tokenAFeeInfo": {
+            "$ref": "#/components/schemas/FeeInfo",
+            "description": "手续费信息"
+          },
+          "tokenBFeeInfo": {
+            "$ref": "#/components/schemas/FeeInfo",
+            "description": "手续费信息"
+          },
+          "openTime": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "closeTime": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "upperTick": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "lowerTick": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "nftMintAddress",
+          "pool",
+          "positionAccountBase64",
+          "positionAddress",
+          "rewards",
+          "tickLowerAccountBase64",
+          "tickUpperAccountBase64"
+        ]
+      },
+      "PageResultSimplePoolInfo": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总条数",
+            "example": 10
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页大小",
+            "example": 10
+          },
+          "records": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/SimplePoolInfo"
+            }
+          },
+          "current": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PoolInfoDetail": {
+        "type": "object",
+        "description": "池子的详细信息",
+        "properties": {
+          "poolAddress": {
+            "type": "string",
+            "description": "池子地址， 也是poolID"
+          },
+          "programId": {
+            "type": "string",
+            "description": "programId"
+          },
+          "accountBase64": {
+            "type": "string",
+            "description": "poolState 账户内容的 base64 编码字符串, 用于解码出pool的各种详细信息"
+          },
+          "mintA": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 代币A（token0） 信息"
+          },
+          "mintB": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 代币B（token1） 信息"
+          },
+          "baseMint": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 base 显示 信息"
+          },
+          "quoteMint": {
+            "$ref": "#/components/schemas/MintInfoWithPrice",
+            "description": "池子中的 quote 显示 信息"
+          },
+          "feeRate": {
+            "$ref": "#/components/schemas/PoolFeeRate",
+            "description": "池子的 freeRate 信息"
+          },
+          "category": {
+            "type": "integer",
+            "format": "int64",
+            "description": "池子分类， 1: 稳定币池, 2: xStocks 池, 4: reset/launch pad 池"
+          },
+          "tvl": {
+            "type": "string",
+            "description": "池子中 代币A 和 代币B 的折USD 总和"
+          },
+          "volumeUsd24h": {
+            "type": "string",
+            "description": "池子的24小时交易量， 折USD"
+          },
+          "feeUsd24h": {
+            "type": "string",
+            "description": "池子的 最近24小时 手续费收益， 折USD"
+          },
+          "feeUsd7d": {
+            "type": "string",
+            "description": "池子的 最近7天 总手续费收益， 折USD"
+          },
+          "feeApr24h": {
+            "type": "string",
+            "description": "池子的 最近24小时Fee收益的年化收益率（APR）"
+          },
+          "dayPriceRange": {
+            "$ref": "#/components/schemas/PriceRange",
+            "description": "池子24小时的价格范围，单位为 tokenA=amountB/amountA 的比例值"
+          },
+          "totalBonusUsdt": {
+            "type": "string",
+            "description": "池子24小时的价格范围，单位为 tokenA=amountB/amountA 的比例值"
+          },
+          "rewards": {
+            "type": "array",
+            "description": "池子的 reward 释放信息",
+            "items": {
+              "$ref": "#/components/schemas/PoolRewardItem"
+            }
+          },
+          "estFarmerApr": {
+            "type": "string",
+            "description": "估算的 farmer年化收益率"
+          },
+          "displayReversed": {
+            "type": "boolean",
+            "description": "true = 展示顺序与链上相反"
+          }
+        },
+        "required": [
+          "category",
+          "dayPriceRange",
+          "feeApr24h",
+          "feeRate",
+          "feeUsd24h",
+          "feeUsd7d",
+          "mintA",
+          "mintB",
+          "poolAddress",
+          "rewards",
+          "tvl",
+          "volumeUsd24h"
+        ]
+      },
+      "PriceRange": {
+        "type": "object",
+        "description": "价格区间",
+        "properties": {
+          "lowPrice": {
+            "type": "string",
+            "description": "最低价, 单位由使用者决定，比例/USD/..."
+          },
+          "highPrice": {
+            "type": "string",
+            "description": "最高价, 单位由使用者决定，比例/USD/..."
+          }
+        },
+        "required": [
+          "highPrice",
+          "lowPrice"
+        ]
+      },
+      "OverviewGlobalDTO": {
+        "type": "object",
+        "properties": {
+          "tvl": {
+            "type": "string"
+          },
+          "tvlChange": {
+            "type": "string"
+          },
+          "volumeUsd24h": {
+            "type": "string"
+          },
+          "volumeUsd24hChange": {
+            "type": "string"
+          },
+          "feeUsd24h": {
+            "type": "string"
+          },
+          "feeUsd24hChange": {
+            "type": "string"
+          },
+          "feeAll": {
+            "type": "string"
+          },
+          "volumeAll": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderListData": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderListItem"
+            }
+          }
+        }
+      },
+      "OrderListItem": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "订单状态：0=确认中(Init)，1=成功(Success)，2=失败(Failed)",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ],
+            "example": 0
+          },
+          "inputTokenMint": {
+            "type": "string"
+          },
+          "outputTokenMint": {
+            "type": "string"
+          },
+          "inputTokenAmount": {
+            "type": "string"
+          },
+          "outputTokenAmount": {
+            "type": "string"
+          },
+          "inputTokenSymbol": {
+            "type": "string"
+          },
+          "outputTokenSymbol": {
+            "type": "string"
+          },
+          "inputTokenLogoURI": {
+            "type": "string"
+          },
+          "outputTokenLogoURI": {
+            "type": "string"
+          },
+          "inputTokenDecimal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "outputTokenDecimal": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unixTime": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userAddress": {
+            "type": "string"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "routeInfo": {
+            "$ref": "#/components/schemas/OrderRouteInfo"
+          }
+        }
+      },
+      "OrderRouteInfo": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "marketMaker": {
+            "type": "string"
+          }
+        }
+      },
+      "MintItem": {
+        "type": "object",
+        "description": "代币（Mint）信息",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "mint 地址",
+            "example": "So11111111111111111111111111111111111111112"
+          },
+          "logoURI": {
+            "type": "string",
+            "description": "代币Logo URI",
+            "example": "https://example.com/logo.png"
+          },
+          "symbol": {
+            "type": "string",
+            "description": "代币符号",
+            "example": "SOL"
+          },
+          "name": {
+            "type": "string",
+            "description": "代币名称",
+            "example": "Solana"
+          },
+          "decimals": {
+            "type": "integer",
+            "format": "int32",
+            "description": "代币精度",
+            "example": 9
+          },
+          "price": {
+            "type": "string",
+            "description": "当前价格（美元）",
+            "example": 100.5
+          },
+          "programId": {
+            "type": "string",
+            "description": "programId",
+            "example": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+          },
+          "tvl": {
+            "type": "string",
+            "description": "总锁仓价值（TVL）",
+            "example": 1000000
+          },
+          "category": {
+            "type": "integer",
+            "format": "int64",
+            "description": "分类",
+            "example": 1
+          },
+          "priceChange24h": {
+            "type": "string",
+            "description": "24小时价格变化百分比",
+            "example": 5.25
+          },
+          "volumeUsd24h": {
+            "type": "string",
+            "description": "24小时交易量（美元）",
+            "example": 50000
+          },
+          "circulatingSupply": {
+            "type": "string",
+            "description": "流通量",
+            "example": 1000000
+          },
+          "totalSupply": {
+            "type": "string",
+            "description": "总量",
+            "example": 10000000
+          },
+          "labels": {
+            "type": "array",
+            "description": "平台标签",
+            "example": [
+              "DeFi",
+              "DEX"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "beginTradeTimestamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "开始交易时间戳（毫秒）",
+            "example": 1234567890000
+          },
+          "extra": {
+            "type": "object",
+            "description": "额外信息, [todo: 将这个字段具体化为各个值]"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "description": "状态",
+            "example": 1
+          },
+          "multiplier": {
+            "type": "string",
+            "description": "Solana Token-2022 的 multiplier 特性模拟股票拆股/派息。",
+            "example": 1
+          }
+        },
+        "required": [
+          "address",
+          "category",
+          "decimals",
+          "logoURI",
+          "name",
+          "price",
+          "priceChange24h",
+          "programId",
+          "status",
+          "symbol",
+          "tvl",
+          "volumeUsd24h"
+        ]
+      },
+      "PageResultMintItem": {
+        "type": "object",
+        "description": "分页结果",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": "总条数",
+            "example": 10
+          },
+          "pageNum": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页码",
+            "example": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前页大小",
+            "example": 10
+          },
+          "records": {
+            "type": "array",
+            "description": "数据列表",
+            "items": {
+              "$ref": "#/components/schemas/MintItem"
+            }
+          },
+          "current": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pages": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "JSONObject": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        },
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "innerMap": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "JitoTipFloorItem": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string"
+          },
+          "landed_tips_25th_percentile": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "landed_tips_50th_percentile": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "landed_tips_75th_percentile": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "landed_tips_95th_percentile": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "landed_tips_99th_percentile": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "ema_landed_tips_50th_percentile": {
+            "type": "string",
+            "example": "123.456"
+          }
+        }
+      },
+      "FrontendConfig": {
+        "type": "object",
+        "properties": {
+          "tokenCategory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NameValue"
+            }
+          },
+          "poolCategory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NameValue"
+            }
+          },
+          "grayDescription": {
+            "type": "string"
+          },
+          "poolRouterFee": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "example": "123.456"
+            }
+          }
+        }
+      },
+      "NameValue": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PriorityFeesItem": {
+        "type": "object",
+        "properties": {
+          "extreme": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "high": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "low": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "medium": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "WhitelistSignResult": {
+        "type": "object",
+        "properties": {
+          "sign": {
+            "type": "string"
+          },
+          "expireTime": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "BinInfos": {
+        "type": "object",
+        "properties": {
+          "claimed_list_token_amount": {
+            "type": "string",
+            "description": "用户在该档位已经领取的项目代币数量（最小单位），用于 Claim 面板显示“已领取”",
+            "example": "123.456"
+          },
+          "claimed_quote_token_amount": {
+            "type": "string",
+            "description": "用户已领取的 quote 退款金额（最小单位），用于区分是否有退款",
+            "example": "123.456"
+          },
+          "commit_amount": {
+            "type": "string",
+            "description": "用户在该档位累计投入的 quote 数量（最小单位）",
+            "example": "123.456"
+          },
+          "commit_quote_token_amount": {
+            "type": "string",
+            "description": "根据当前档位状态推导出的“预计可领取的项目代币数量”，最小单位",
+            "example": "123.456"
+          },
+          "estimated_allocation_amount": {
+            "type": "string",
+            "description": "根据当前档位状态推导出的“预计可领取的项目代币数量”，最小单位",
+            "example": "123.456"
+          },
+          "estimated_refund_amount": {
+            "type": "string",
+            "description": "根据档位状态推导的“预计退款”数额（quote 最小单位）",
+            "example": "123.456"
+          },
+          "unit_price": {
+            "type": "string",
+            "description": "档位的原始单价（链上 unitPrice，quote 最小单位）",
+            "example": "123.456"
+          }
+        }
+      },
+      "UserCommitStatusInfo": {
+        "type": "object",
+        "description": "用户的认购状态信息",
+        "properties": {
+          "user": {
+            "type": "string",
+            "description": "用户地址"
+          },
+          "auction": {
+            "type": "string",
+            "description": "auction 地址"
+          },
+          "bins": {
+            "type": "array",
+            "description": "用户在各个bin中的commit/claim状态",
+            "items": {
+              "$ref": "#/components/schemas/BinInfos"
+            }
+          }
+        }
+      },
+      "LaunchpadStatisticInfo": {
+        "type": "object",
+        "description": "Launchpad 统计信息",
+        "properties": {
+          "athRoi": {
+            "type": "string",
+            "description": "历史最高收益率",
+            "example": "123.456"
+          },
+          "participants": {
+            "type": "integer",
+            "format": "int64",
+            "description": "参与人数"
+          },
+          "totalDeposit": {
+            "type": "string",
+            "description": "总锁仓金额",
+            "example": "123.456"
+          }
+        }
+      },
+      "AuctionDTO": {
+        "type": "object",
+        "description": "Auction 基本信息",
+        "properties": {
+          "athRoi": {
+            "type": "string",
+            "description": "Auction 历史最高收益率, launchpad 结束后，才会有该数据",
+            "example": "123.456"
+          },
+          "auctionAddress": {
+            "type": "string",
+            "description": "Auction 地址, auction在链上已经被创建"
+          },
+          "listTokenInfo": {
+            "$ref": "#/components/schemas/MintInfo",
+            "description": "进行 launchpad 的代币信息"
+          },
+          "listTokenLabels": {
+            "type": "array",
+            "description": "进行 launchpad 的代币标签",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mediaInfo": {
+            "$ref": "#/components/schemas/MediaExtra",
+            "description": "媒体信息"
+          },
+          "participants": {
+            "type": "integer",
+            "format": "int64",
+            "description": "参与 launchpad 的计价代币（支付代币）标签"
+          },
+          "phases": {
+            "type": "array",
+            "description": "Auction 各阶段时间信息",
+            "items": {
+              "$ref": "#/components/schemas/AuctionPhaseItem"
+            }
+          },
+          "poolAddress": {
+            "type": "string",
+            "description": "pool address"
+          },
+          "projectLogo": {
+            "type": "string",
+            "description": "进行 launchpad 的项目 Logo"
+          },
+          "projectName": {
+            "type": "string",
+            "description": "进行 launchpad 的项目名称"
+          },
+          "quoteTokenInfo": {
+            "$ref": "#/components/schemas/MintInfo",
+            "description": "参与 launchpad 的计价代币（支付代币）信息"
+          },
+          "saleCap": {
+            "type": "string",
+            "description": "TODO, 要补充该字段的完整意义，james/stanley",
+            "example": "123.456"
+          },
+          "salePrice": {
+            "type": "string",
+            "description": "TODO, 要补充该字段的完整意义，james/stanley"
+          },
+          "targetRaise": {
+            "type": "string",
+            "description": "目标募集金额",
+            "example": "123.456"
+          },
+          "totalAllocation": {
+            "type": "string",
+            "description": "TODO, 要补充该字段的完整意义，james/stanley"
+          },
+          "totalCommitted": {
+            "type": "string",
+            "description": "Auction 的募资数量 ",
+            "example": "123.456"
+          },
+          "tvl": {
+            "type": "string",
+            "description": "Auction 对应pool的 tvl",
+            "example": "123.456"
+          },
+          "volume": {
+            "type": "string",
+            "description": "Auction 对应pool的 成交量",
+            "example": "123.456"
+          }
+        }
+      },
+      "AuctionPhaseItem": {
+        "type": "object",
+        "description": "Auction 各阶段的时间信息",
+        "properties": {
+          "begin": {
+            "type": "integer",
+            "format": "int64",
+            "description": "阶段的开始时间戳，单位秒; check 的开始时间，由后端配置， deposit 和 claim 的开始时间由链上决定"
+          },
+          "description": {
+            "type": "string",
+            "description": "阶段 的描述信息"
+          },
+          "end": {
+            "type": "integer",
+            "format": "int64",
+            "description": "阶段的结束时间戳，单位秒; claim 的结束时间，由后端配置， check 和 deposit 的结束时间由链上决定"
+          },
+          "linkUrl": {
+            "type": "string",
+            "description": "后端配置的任意跳转链接，可选"
+          },
+          "phase": {
+            "type": "string",
+            "description": "阶段标识，取值: 'check', 'deposit', 'claim', "
+          },
+          "title": {
+            "type": "string",
+            "description": "阶段 的标题"
+          }
+        }
+      },
+      "MediaExtra": {
+        "type": "object",
+        "properties": {
+          "twitter": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          }
+        }
+      },
+      "AuctionDetailInfo": {
+        "type": "object",
+        "description": "Auction 详细信息",
+        "properties": {
+          "accountBase64": {
+            "type": "string",
+            "description": "Auction 账户 base64 编码"
+          },
+          "auctionAddress": {
+            "type": "string",
+            "description": "Auction 地址, auction在链上已经被创建"
+          },
+          "projectName": {
+            "type": "string",
+            "description": "进行 launchpad 的项目名称"
+          },
+          "projectLogo": {
+            "type": "string",
+            "description": "进行 launchpad 的项目 Logo"
+          },
+          "projectDescription": {
+            "type": "string",
+            "description": "该 发射项目的 简要描述"
+          },
+          "mediaInfo": {
+            "$ref": "#/components/schemas/MediaExtra",
+            "description": "媒体信息"
+          },
+          "information": {
+            "type": "array",
+            "description": "在管理后台为项目配置的额外信息， 全部都以 key-value 形式存储, 在前端展示为 [Reset Launch Information Overview]",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object"
+              }
+            }
+          },
+          "tokenomics": {
+            "type": "array",
+            "description": "项目的 Tokenomics 信息",
+            "items": {
+              "$ref": "#/components/schemas/TokenomicsItem"
+            }
+          },
+          "projectDetailInformation": {
+            "type": "string",
+            "description": "项目的详细介绍信息，在前端展示为 [Project Details 的 information]"
+          },
+          "salePrice": {
+            "type": "string",
+            "description": "TODO, 要补充该字段的完整意义，james/stanley"
+          },
+          "targetRaise": {
+            "type": "string",
+            "description": "目标募集金额",
+            "example": "123.456"
+          },
+          "totalAllocation": {
+            "type": "string",
+            "description": "TODO, 要补充该字段的完整意义，james/stanley"
+          },
+          "listTokenInfo": {
+            "$ref": "#/components/schemas/MintInfo",
+            "description": "进行 launchpad 的代币信息"
+          },
+          "listTokenLabels": {
+            "type": "array",
+            "description": "进行 launchpad 的代币标签",
+            "items": {
+              "type": "string"
+            }
+          },
+          "quoteTokenInfo": {
+            "$ref": "#/components/schemas/MintInfo",
+            "description": "参与 launchpad 的计价代币（支付代币）信息"
+          },
+          "phases": {
+            "type": "array",
+            "description": "launchpad 的各个阶段时间信息，用于前端的倒计时",
+            "items": {
+              "$ref": "#/components/schemas/AuctionPhaseItem"
+            }
+          },
+          "poolAddress": {
+            "type": "string",
+            "description": "launchpad 完成后，在byreal DEX 上创建的流动性池地址"
+          },
+          "athRoi": {
+            "type": "string",
+            "description": "Auction 历史最高收益率, launchpad 结束后，才会有该数据",
+            "example": "123.456"
+          },
+          "whitelistRequired": {
+            "type": "boolean",
+            "description": "是否需要白名单"
+          },
+          "extra": {
+            "$ref": "#/components/schemas/AuctionExtra",
+            "description": "Auction 额外信息"
+          },
+          "saleCap": {
+            "type": "string",
+            "example": "123.456"
+          }
+        }
+      },
+      "AuctionExtra": {
+        "type": "object",
+        "properties": {
+          "projectBgDesktopDark": {
+            "type": "string"
+          },
+          "projectBgDesktopLight": {
+            "type": "string"
+          },
+          "projectBgMobileDark": {
+            "type": "string"
+          },
+          "projectBgMobileLight": {
+            "type": "string"
+          }
+        }
+      },
+      "TokenomicsItem": {
+        "type": "object",
+        "description": "Tokenomics 代币经济学信息 基础对象",
+        "properties": {
+          "lock": {
+            "type": "boolean",
+            "description": "该部分代币是否锁仓"
+          },
+          "notes": {
+            "type": "string",
+            "description": "该部分代币的 锁仓/分发 说明"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32",
+            "description": "该部分代币的 数量"
+          },
+          "percentage": {
+            "type": "string",
+            "description": "占总供应的百分比"
+          },
+          "title": {
+            "type": "string",
+            "description": "分配类型标题，如团队、IDO、公募等"
+          },
+          "totalAllocation": {
+            "type": "string",
+            "description": "TODO, 要补充该字段的完整意义，james/stanley"
+          }
+        }
+      },
+      "KLineItem": {
+        "type": "object",
+        "properties": {
+          "o": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "h": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "l": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "c": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "v": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "s": {
+            "type": "string"
+          },
+          "t": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CopyFarmerProviderOverviewInfo": {
+        "type": "object",
+        "properties": {
+          "providerAddress": {
+            "type": "string",
+            "description": "当前用户的地址"
+          },
+          "totalValue": {
+            "type": "string",
+            "description": "用户持仓价值"
+          },
+          "totalPnl": {
+            "type": "string",
+            "description": "当前用户的总收益",
+            "example": "123.456"
+          },
+          "totalBonus": {
+            "type": "string",
+            "description": "总产生的 bonus-U",
+            "example": "123.456"
+          },
+          "avgApr": {
+            "type": "string",
+            "description": "平均apr",
+            "example": "123.456"
+          },
+          "openPositionCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前开仓数量"
+          },
+          "closePositonCount": {
+            "type": "integer",
+            "format": "int32",
+            "description": "当前关闭数量"
+          },
+          "avgAge": {
+            "type": "integer",
+            "format": "int32",
+            "description": "仓位的平均生命周期"
+          },
+          "copies": {
+            "type": "integer",
+            "format": "int32",
+            "description": "累计跟随过别人的数量"
+          },
+          "follows": {
+            "type": "integer",
+            "format": "int32",
+            "description": "累计 被 跟随过的仓位数量"
+          },
+          "followsBonus": {
+            "type": "string",
+            "description": "被跟随的奖励折 U",
+            "example": "123.456"
+          },
+          "copiesBonus": {
+            "type": "string",
+            "description": "跟随的奖励折 U",
+            "example": "123.456"
+          },
+          "unclaimedTotal": {
+            "type": "string",
+            "description": "总的未领取的总计 U",
+            "example": "123.456"
+          },
+          "unclaimedFee": {
+            "type": "string",
+            "description": "总的未领取的总计 U",
+            "example": "123.456"
+          },
+          "unclaimedRewards": {
+            "type": "string",
+            "description": "总的未领取的rewards U",
+            "example": "123.456"
+          },
+          "unclaimedBonus": {
+            "type": "string",
+            "description": "总的未领取的bonus U",
+            "example": "123.456"
+          },
+          "unclaimedFees": {
+            "type": "array",
+            "description": "未领取的fee明细",
+            "items": {
+              "$ref": "#/components/schemas/UnClaimedFeeDTO"
+            }
+          },
+          "unclaimedFeePositionCount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "未领取fee的postion数量"
+          },
+          "unclaimedOpenIncentives": {
+            "type": "array",
+            "description": "开仓中未领取的incentive明细",
+            "items": {
+              "$ref": "#/components/schemas/UnClaimedFeeDTO"
+            }
+          },
+          "unclaimedOpenIncentivesPositionCount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "开仓中未领取reward的postion数量"
+          },
+          "unclaimedClosedIncentives": {
+            "type": "array",
+            "description": "关仓未领取的Incentive明细",
+            "items": {
+              "$ref": "#/components/schemas/UnClaimedFeeDTO"
+            }
+          },
+          "unclaimedIncentivesClosedPositionCount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "关仓未领取Incentive的postion数量"
+          },
+          "totalFee": {
+            "type": "string",
+            "description": "总产生的feeusd",
+            "example": "123.456"
+          },
+          "curentEpoch": {
+            "$ref": "#/components/schemas/EpochBonusInfo",
+            "description": "当前epoch pending中"
+          },
+          "nextClaim": {
+            "$ref": "#/components/schemas/EpochBonusInfo",
+            "description": "马上可以领取的"
+          }
+        }
+      },
+      "EpochBonusInfo": {
+        "type": "object",
+        "description": "Epoch Bonus 信息",
+        "properties": {
+          "epochTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Epoch 结束时间（毫秒时间戳）",
+            "example": 1732521600000
+          },
+          "epochStartTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "epochStartTime 结束时间（毫秒时间戳）",
+            "example": 1732521600000
+          },
+          "claimTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "开始领取时间（毫秒时间戳）",
+            "example": 1732608000000
+          },
+          "endTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "过期时间（毫秒时间戳）",
+            "example": 1733126400000
+          },
+          "totalBonusUsd": {
+            "type": "string",
+            "description": "总 Bonus 折算 USD",
+            "example": 123.45
+          }
+        }
+      },
+      "FarmerOverviewDTO": {
+        "type": "object",
+        "properties": {
+          "totalFeeUsd": {
+            "type": "string"
+          },
+          "totalIncentiveUsd": {
+            "type": "string"
+          },
+          "totalBonusUsd": {
+            "type": "string"
+          }
+        }
+      },
+      "BinaryPositionRecord": {
+        "type": "object",
+        "description": "二元期权用户仓位记录",
+        "properties": {
+          "yesMintHoldAmount": {
+            "type": "string",
+            "description": "Yes期权当前持有数量",
+            "example": 100
+          },
+          "yesMintHoldValue": {
+            "type": "string",
+            "description": "Yes hold Value",
+            "example": 0.1667
+          },
+          "yesMintBuyAmount": {
+            "type": "string",
+            "description": "Yes期权累计买入数量",
+            "example": 150
+          },
+          "yesMintSellAmount": {
+            "type": "string",
+            "description": "Yes期权累计卖出数量",
+            "example": 50
+          },
+          "yesMintBuyCostUsd": {
+            "type": "string",
+            "description": "Yes期权买入总成本(USD)",
+            "example": 3000
+          },
+          "yesMintSellEarnUsd": {
+            "type": "string",
+            "description": "Yes期权卖出总收入(USD)",
+            "example": 1000
+          },
+          "yesMintAvgPrice": {
+            "type": "string",
+            "description": "Yes期权平均价格",
+            "example": 20
+          },
+          "yesMintPnl": {
+            "type": "string",
+            "description": "Yes期权盈亏金额",
+            "example": 500
+          },
+          "yesMintPnlRatio": {
+            "type": "string",
+            "description": "Yes期权盈亏比例",
+            "example": 0.1667
+          },
+          "noMintHoldAmount": {
+            "type": "string",
+            "description": "No期权当前持有数量",
+            "example": 80
+          },
+          "noMintHoldValue": {
+            "type": "string",
+            "description": "no hold Value",
+            "example": 0.1667
+          },
+          "noMintBuyAmount": {
+            "type": "string",
+            "description": "No期权累计买入数量",
+            "example": 120
+          },
+          "noMintSellAmount": {
+            "type": "string",
+            "description": "No期权累计卖出数量",
+            "example": 40
+          },
+          "noMintBuyCostUsd": {
+            "type": "string",
+            "description": "No期权买入总成本(USD)",
+            "example": 2400
+          },
+          "noMintSellEarnUsd": {
+            "type": "string",
+            "description": "No期权卖出总收入(USD)",
+            "example": 800
+          },
+          "noMintAvgPrice": {
+            "type": "string",
+            "description": "No期权平均价格",
+            "example": 20
+          },
+          "noMintPnl": {
+            "type": "string",
+            "description": "No期权盈亏金额",
+            "example": 400
+          },
+          "noMintPnlRatio": {
+            "type": "string",
+            "description": "No期权盈亏比例",
+            "example": 0.1667
+          }
+        }
+      },
+      "BinaryPoolSummaryResp": {
+        "type": "object",
+        "properties": {
+          "tvl24hTotal": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "fgi24hAgo": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "fgi7dAgo": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "fgi30dAgo": {
+            "type": "string",
+            "example": "123.456"
+          }
+        }
+      },
+      "BinaryPoolDetailResp": {
+        "type": "object",
+        "properties": {
+          "accountBase64": {
+            "type": "string"
+          }
+        }
+      },
+      "BinaryPnlTrendResp": {
+        "type": "object",
+        "description": "PnL 趋势响应",
+        "properties": {
+          "statsPeriod": {
+            "type": "string",
+            "description": "统计周期",
+            "example": "1h"
+          },
+          "currentMintPnl": {
+            "type": "string",
+            "description": "当前总盈亏金额(yes+no)",
+            "example": 0.123
+          },
+          "currentMintPnlRatio": {
+            "type": "string",
+            "description": "当前总盈亏比例(yes+no)",
+            "example": 0.123
+          },
+          "pnlPoints": {
+            "type": "array",
+            "description": "历史 PnL 数据点列表",
+            "items": {
+              "$ref": "#/components/schemas/PnlPoint"
+            }
+          }
+        }
+      },
+      "PnlPoint": {
+        "type": "object",
+        "description": "PnL 数据点",
+        "properties": {
+          "unixTime": {
+            "type": "integer",
+            "format": "int64",
+            "description": "时间戳(秒)",
+            "example": 1700000000
+          },
+          "yesMintPnl": {
+            "type": "string",
+            "description": "Yes 期权盈亏金额",
+            "example": 12.345
+          },
+          "yesMintPnlRatio": {
+            "type": "string",
+            "description": "Yes 期权盈亏比例",
+            "example": 0.123
+          },
+          "noMintPnl": {
+            "type": "string",
+            "description": "No 期权盈亏金额",
+            "example": 5.678
+          },
+          "noMintPnlRatio": {
+            "type": "string",
+            "description": "No 期权盈亏比例",
+            "example": 0.056
+          }
+        }
+      },
+      "BinaryKLineItem": {
+        "type": "object",
+        "properties": {
+          "c": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "v": {
+            "type": "string",
+            "example": "123.456"
+          },
+          "s": {
+            "type": "string"
+          },
+          "t": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "BinaryTopHoldersResp": {
+        "type": "object",
+        "description": "Top Holders 响应",
+        "properties": {
+          "totalYesMint": {
+            "type": "string",
+            "description": "总的Yes持仓量",
+            "example": 12312321
+          },
+          "totalNoMint": {
+            "type": "string",
+            "description": "总的No持仓量",
+            "example": 12312321
+          },
+          "yesRecords": {
+            "type": "array",
+            "description": "Top Yes Holders 列表",
+            "items": {
+              "$ref": "#/components/schemas/TopHolderRecord"
+            }
+          },
+          "noRecords": {
+            "type": "array",
+            "description": "Top No Holders 列表",
+            "items": {
+              "$ref": "#/components/schemas/TopHolderRecord"
+            }
+          }
+        }
+      },
+      "TopHolderRecord": {
+        "type": "object",
+        "description": "Top Holder 记录",
+        "properties": {
+          "userAddress": {
+            "type": "string",
+            "description": "用户地址",
+            "example": "0xABC123..."
+          },
+          "holdMintAmount": {
+            "type": "string",
+            "description": "持有数量",
+            "example": 9500
+          },
+          "value": {
+            "type": "string",
+            "description": "价值（holdMintAmount * price，price=1）",
+            "example": 9500
+          }
+        }
+      },
+      "BinaryActivitiesResp": {
+        "type": "object",
+        "description": "二元期权活动历史响应",
+        "properties": {
+          "cursor": {
+            "type": "integer",
+            "format": "int64",
+            "description": "当前游标",
+            "example": 1
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int32",
+            "description": "每页数量",
+            "example": 20
+          },
+          "records": {
+            "type": "array",
+            "description": "活动记录列表",
+            "items": {
+              "$ref": "#/components/schemas/BinaryActivityRecord"
+            }
+          }
+        }
+      },
+      "BinaryActivityRecord": {
+        "type": "object",
+        "description": "二元期权活动记录",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "活动ID",
+            "example": 11
+          },
+          "type": {
+            "type": "string",
+            "description": "活动类型",
+            "example": "TRADE"
+          },
+          "block_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "区块时间（秒）",
+            "example": 321231
+          },
+          "tx_signature": {
+            "type": "string",
+            "description": "交易签名",
+            "example": "xxfdafd"
+          },
+          "user_address": {
+            "type": "string",
+            "description": "用户地址（脱敏）",
+            "example": "lkfja**opj"
+          },
+          "action": {
+            "type": "string",
+            "description": "动作",
+            "enum": [
+              "BUY",
+              "SELL"
+            ],
+            "example": "BUY"
+          },
+          "side": {
+            "type": "string",
+            "description": "方向",
+            "enum": [
+              "YES",
+              "NO"
+            ],
+            "example": "YES"
+          },
+          "optionAmount": {
+            "type": "string",
+            "description": "期权数量",
+            "example": 10
+          },
+          "poolPrice": {
+            "type": "string",
+            "description": "池子价格",
+            "example": 0.5231
+          },
+          "cost": {
+            "type": "string",
+            "description": "成本",
+            "example": 5.31
+          }
+        }
+      },
+      "BannerItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "imageLight": {
+            "type": "string"
+          },
+          "imageDark": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "announcementUrl": {
+            "type": "string"
+          },
+          "cta": {
+            "$ref": "#/components/schemas/CtaItem"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "display": {
+            "$ref": "#/components/schemas/TimeItem"
+          },
+          "activity": {
+            "$ref": "#/components/schemas/TimeItem"
+          }
+        }
+      },
+      "BehaviorItem": {
+        "type": "object",
+        "properties": {
+          "base": {
+            "$ref": "#/components/schemas/KindItem"
+          },
+          "desktop": {
+            "$ref": "#/components/schemas/KindItem"
+          },
+          "mobile": {
+            "$ref": "#/components/schemas/KindItem"
+          }
+        }
+      },
+      "CtaItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "behavior": {
+            "$ref": "#/components/schemas/BehaviorItem"
+          }
+        }
+      },
+      "KindItem": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        }
+      },
+      "TimeItem": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "end": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
+    }
+  }
+}
