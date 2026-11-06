@@ -1,8 +1,7 @@
 # Byreal DEX API V2/V3 接口文档
 
 > 更新日期：2026-11-06  
-> 服务范围：`byreal-dex-api-*`  
-> 本文仅整理 API 服务中的 V2/V3 HTTP 接口，不包含 `byreal-dex-admin-*` 管理后台接口。
+> API 服务提供的 V2/V3 HTTP 接口。
 
 ## 1. 公共约定
 
