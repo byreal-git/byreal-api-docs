@@ -438,9 +438,4 @@ POST /byreal/api/dex/v3/order/merged-list
 - `/byreal/api/dex/v3/admin/banner-v3/**` 属于 Admin 服务，不要加入 API 服务 BGW。
 - V2 原接口保持不变，本次无需新增 V2 BGW 路由。
 
-## 7. 相关文档
-
-- [DEX V3 多链接口详细文档](./v3-multichain-api.md)
-- [旧 Banner 接口文档](./event/banner-api.md)
-- [EVM V2 Token 列表差异说明](./evm-v2-mint-list-api-gap.md)
 
